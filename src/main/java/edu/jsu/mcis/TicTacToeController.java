@@ -1,6 +1,6 @@
 package edu.jsu.mcis;
 
-public class TicTacToeController {
+public class TicTacToeController implements ActionListener {
 
     private final TicTacToeModel model;
     private final TicTacToeView view;
@@ -24,23 +24,32 @@ public class TicTacToeController {
            "getNextMove()" to get the next move from the player.  Enter
            the move (using the Model's "makeMark()", or display an error
            using the View's "showInputError()" if the move is invalid. */
-        while(model.isGameover() == false){
-        view.showBoard(model.toString());
-       TicTacToeMove move = view.getNextMove(model.isXTurn());
-        int row = move.getRow();
-        int col = move.getCol();
-        if(model.makeMark(row,col) == false){
-            view.showInputError();
+        
+        if(model.isGameover() == true){
+            view.disableSquares();
+            view.showResult(model.getResult());
         }
-    }
     
         
         /* After the game is over, show the final board and the winner */
 
-        view.showBoard(model.toString());
 
-        view.showResult(model.getResult().toString());
         
+    }
+    public String getMarkAsString(int row, int col) {        
+        return (model.getMark(row, col).toString());        
+    }
+    
+    public TicTacToeView getView() {        
+        return view;        
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent event) {
+        JButton buttonClicked = (JButton)e.getSource();
+        model.makeMark(buttonClicked.row,buttonClicked.col)
+        view.updateSquares();
+        }
     }
 
 }

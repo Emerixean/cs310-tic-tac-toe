@@ -1,52 +1,72 @@
 package edu.jsu.mcis;
 
 import java.util.Scanner;
+import java.awt.*;
+import javax.swing.*;
 
-public class TicTacToeView {
+public class TicTacToeView extends JPanel {
     
-    private final Scanner keyboard;
+    private final TicTacToeController controller;
+
+    private final JButtion[][] board;
+    private final JPanel squaresPanel;
+    private final JLabel resultLabel;
     
     /* CONSTRUCTOR */
 	
-    public TicTacToeView() {
+    public TicTacToeView(TicTacToeController controller, int width) {
         
-        /* Initialize scanner (for console keyboard) */
         
-        keyboard = new Scanner(System.in);
+        this.controller = controller;
+        this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+        board = new JButton[width][width];
+        squaresPanel = new JPanel(new GridLayout(width,width));
+        resultLabel = new JLabel();
+        resultLabel.setName("ResultLabel");
+
+        for(int row = 0; row < width; row++){
+            for( into col = 0; col<width; col++){
+                board[row][col] = new JButton();
+                board[row][col].addActionListener(controller);
+                board[row][col].setName("Square" + row + col);
+                board[row][col].setPreferredSize(new Dimension(64,64));
+                squaresPanel.add(board[row][col]);
+
+            }
+        }
+        this.add(squaresPanel);
+        this.add(resultLabel);
+
+        resultLabel.setText("Welcome to Tic-Tac-Toe!");
         
     }
 	
-    public TicTacToeMove getNextMove(boolean isXturn) {
-        
-        /* Prompt the player to enter the row and the column of their next move.
-           Return as a TicTacToeMove object. */
-        System.out.println("Enter your next move ");
-        System.out.println("Row");
-        int row = keyboard.nextInt();
-        System.out.println("Col");
-        int col = keyboard.nextInt();
-        
+    public void updateSquares() {
 
-        return new TicTacToeMove(row, col); // remove this line later!
+        /* Refresh the GUI with updated data from the Model (via the Controller) */
 
-    }
-
-    public void showInputError() {
-
-        System.out.println("Entered location is invalid, already marked, or out of bounds.");
-
-    }
-
-    public void showResult(String r) {
-
-        System.out.println(r + "!");
+        controller.getView();
 
     }
     
-    public void showBoard(String board) {
+    public void disableSquares() {
+
+        /* Disable buttons (to disallow input after game is over) */
+    
+        // INSERT YOUR CODE HERE
+            
+    }
         
-        System.out.println("\n\n" + board);
+    public void showResult(String message) {
+        
+        resultLabel.setText(message);
         
     }
-	
+    
+    public void clearResult() {
+        
+        resultLabel.setText(" ");
+        
+    }
+
 }
