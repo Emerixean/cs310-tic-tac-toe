@@ -16,14 +16,18 @@ public class TicTacToeView {
         
     }
 	
-    public TicTacToeMove getNextMove(boolean isXTurn) {
+    public TicTacToeMove getNextMove(boolean isXturn) {
         
         /* Prompt the player to enter the row and the column of their next move.
            Return as a TicTacToeMove object. */
+        System.out.println("Enter your next move ");
+        System.out.println("Row");
+        int row = keyboard.nextInt();
+        System.out.println("Col");
+        int col = keyboard.nextInt();
         
-        // INSERT YOUR CODE HERE
 
-        return null; // remove this line later!
+        return new TicTacToeMove(row, col); // remove this line later!
 
     }
 
