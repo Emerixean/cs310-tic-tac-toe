@@ -1,9 +1,17 @@
 package edu.jsu.mcis;
+import java.awt.event.*;
+import java.awt.*;
+import javax.swing.*;
 
 public class TicTacToeController implements ActionListener {
 
     private final TicTacToeModel model;
-    private final TicTacToeView view;
+    private final TicTacToeView view;   
+    String[] num;     
+    int row;
+    int col;
+
+
     
     /* CONSTRUCTOR */
 
@@ -12,7 +20,7 @@ public class TicTacToeController implements ActionListener {
         /* Initialize model, view, and width */
 
         model = new TicTacToeModel(width);
-        view = new TicTacToeView();
+        view = new TicTacToeView(this, width);
         
     }
 
@@ -27,7 +35,7 @@ public class TicTacToeController implements ActionListener {
         
         if(model.isGameover() == true){
             view.disableSquares();
-            view.showResult(model.getResult());
+            view.showResult(model.getResult().toString());
         }
     
         
@@ -46,10 +54,15 @@ public class TicTacToeController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent event) {
-        JButton buttonClicked = (JButton)e.getSource();
-        model.makeMark(buttonClicked.row,buttonClicked.col)
+        String text = ((JButton) event.getSource()).getText();
+        text = text.replaceAll("([a-z","");
+        num =text.split("");
+        row = Integer.parseInt(num[0]);
+        col = Integer.parseInt(num[1]);
+
+        model.makeMark(row ,  col);
         view.updateSquares();
         }
     }
 
-}
+

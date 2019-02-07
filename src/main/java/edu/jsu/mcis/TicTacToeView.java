@@ -8,7 +8,7 @@ public class TicTacToeView extends JPanel {
     
     private final TicTacToeController controller;
 
-    private final JButtion[][] board;
+    private final JButton[][] board;
     private final JPanel squaresPanel;
     private final JLabel resultLabel;
     
@@ -25,10 +25,10 @@ public class TicTacToeView extends JPanel {
         resultLabel.setName("ResultLabel");
 
         for(int row = 0; row < width; row++){
-            for( into col = 0; col<width; col++){
+            for( int col = 0; col<width; col++){
                 board[row][col] = new JButton();
                 board[row][col].addActionListener(controller);
-                board[row][col].setName("Square" + row + col);
+                board[row][col].setName("square" + row + col);
                 board[row][col].setPreferredSize(new Dimension(64,64));
                 squaresPanel.add(board[row][col]);
 
@@ -53,7 +53,11 @@ public class TicTacToeView extends JPanel {
 
         /* Disable buttons (to disallow input after game is over) */
     
-        // INSERT YOUR CODE HERE
+        for(int i = 0; i < board.length; i++){
+            for(int j = 0; j < board.length; j++){
+                board[i][j].setEnabled(false);
+            }
+        }
             
     }
         
